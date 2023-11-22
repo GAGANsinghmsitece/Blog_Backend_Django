@@ -1,0 +1,109 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<section class="banner-area relative">
+		<div class="overlay overlay-bg"></div>
+		<div class="container box_1170">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">
+						{{arg}}
+					</h1>
+					<p class="text-white link-nav"><a href="/post_tags">Post Tags </a> <span class="lnr lnr-arrow-right"></span> <a href="/post_tags/{{arg}}/">
+							{{arg}}</a></p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<div class="row" style="margin-top:20px;width:100%;">
+	<div class="col-lg-8 post-list">
+					<!-- Start Post Area -->
+					<section class="post-area">
+						<div class="row">
+                       {% for p in cat %}
+							<div class="col-lg-6 col-md-6">
+								<div class="single-post-item">
+									<div class="post-thumb">
+										<img class="img-fluid" src="{{p.first_image.url}}" alt="">
+									</div>
+									<div class="post-details">
+										<h4><a href="/post/{{p.id}}/">{{p.heading}}</a></h4>
+										<p>{{p.meta}}</p>
+										<div class="blog-meta">
+											<a href="#" class="m-gap"><span class="lnr lnr-calendar-full"></span>{{p.post_date|date:"F j Y"}}</a>
+											<a href="#" class="m-gap"><span class="lnr lnr-bubble"></span>05</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+
+							<div class="col-lg-12">
+								<nav class="blog-pagination justify-content-center d-flex">   {% if cat.has_other_pages %}
+  <ul class="pagination">
+    {% if cat.has_previous %}
+      <li class="page-item"><a  class="page-link" aria-label="Previous" href="?page={{ cat.previous_page_number }}"><span aria-hidden="true"><span class="lnr lnr-arrow-left"></span></span></a></li>
+    {% else %}
+       <li class="page-item disabled"><a  class="page-link" aria-label="Previous"><span aria-hidden="true"><span class="lnr lnr-arrow-left"></span></span></a></li>
+    {% endif %}
+    {% for i in cat.paginator.page_range %}
+      {% if cat.number == i %}
+        <li class=" page-item active"><a class="page-link" href="?page={{ i }}">{% if i < 10 %}0{% endif %}{{ i }}</a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{% if i < 10 %}0{% endif %}{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if cat.has_next %}
+      <li class="page-item"><a class="page-link"aria-label="Next"href="?page={{ cat.next_page_number }}"><span aria-hidden="true"><span class="lnr lnr-arrow-right"></span></span></a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link"aria-label="Next"><span aria-hidden="true"><span class="lnr lnr-arrow-right"></span></span></a></li>
+    {% endif %}
+  </ul>
+{% endif %}
+							
+									
+								</nav>
+							</div>
+						</div>
+					</section>
+					<!-- Start Post Area -->
+				</div>
+</div>
+
+
+<!-- start footer Area -->
+	<footer class="footer-area section-gap" style="margin-top:100px;">
+		<div class="container box_1170">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-footer-widget">
+						<h6 class="footer_title">About Us</h6>
+						{% for c in a%}
+						<p>{{c.text}}</p>
+						{% endfor v%}
+					</div>
+				</div>
+			
+			
+				<div class="col-lg-2 col-md-6 col-sm-6">
+					<div class="single-footer-widget f_social_wd">
+						<h6 class="footer_title">Follow Us</h6>
+						<p>Let us be social</p>
+						<div class="f_social">
+							<a href="https://www.facebook.com/webmashsapora/"><i class="fa fa-facebook"></i></a>
+							<a href="https://twitter.com/_webmash"><i class="fa fa-twitter"></i></a>
+							<a href="https://www.instagram.com/_webmash/"><i class="fa fa-instagram"></i></a>
+							<a href="https://in.pinterest.com/webmashsapora/"><i class="fa fa-pinterest"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row footer-bottom d-flex justify-content-between align-items-center">
+				<p class="col-lg-12 footer-text text-center">
+Copyright &copy;2019-<script>document.write(new Date().getFullYear());</script> All rights reserved |Sapora inc.<span style="display: none;"> This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></span>
+</p>
+			</div>
+		</div>
+	</footer>
+{% endblock %}
